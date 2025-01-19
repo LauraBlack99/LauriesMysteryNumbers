@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>Laurie's Mystery Numbers</h1>
-  <input type="text" id="tokenInput" placeholder="Zadej token" />
+  <input type="text" id="tokenInput" placeholder="Insert your code" />
   <button id="generateButton">Losuj!</button>
   <p id="result"></p>
 
@@ -39,7 +39,7 @@
       const token = tokenInput.value.trim();
 
       if (!token) {
-        alert("Prosím, zadej token!");
+        alert("Please, insert code!");
         return;
       }
 
@@ -48,13 +48,13 @@
         const snapshot = await get(tokenRef);
 
         if (!snapshot.exists()) {
-          alert("Token neexistuje nebo je neplatný.");
+          alert("Code doesn't exist or it is invalid.");
           return;
         }
 
         const tokenData = snapshot.val();
         if (tokenData.status !== "Valid") {
-          alert("Token je neplatný nebo již byl použit.");
+          alert("Code is invalid or already used.");
           return;
         }
 
