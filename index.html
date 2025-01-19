@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generátor náhodného čísla</title>
+</head>
+<body>
+  <h1>Generátor náhodného čísla</h1>
+  <input type="text" id="tokenInput" placeholder="Zadej token" />
+  <button id="generateButton">Losuj!</button>
+  <p id="result"></p>
+
+  <script type="module">
+    // Konfigurace Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+    import { getDatabase, ref, get, child, update } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQUmhoGLk8y7b2c7xTXoAhdsKyycVVutk",
+      authDomain: "generator-1a774.firebaseapp.com",
+      databaseURL: "https://generator-1a774-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "generator-1a774",
+      storageBucket: "generator-1a774.appspot.com",
+      messagingSenderId: "615580881065",
+      appId: "1:615580881065:web:1fe90ea65a27c7587199b8"
+    };
+
+    // Inicializace Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // Funkce pro losování
+    const generateButton = document.getElementById("generateButton");
+    const tokenInput = document.getElementById("tokenInput");
+    const result = document.getElementById("result");
+
+    generateButton.addEventListener("click", async () => {
+      const token = tokenInput.value.trim();
+
+      if (!token) {
+        alert("Prosím, zadej token!");
+        return;
+      }
+
+      try {
+        const tokenRef = ref(database, `Tokens/${token}`);
+        const snapshot = await get(tokenRef);
+
+        if (!snapshot.exists()) {
+          alert("Token neexistuje nebo je neplatný.");
+          return;
+        }
+
+        const tokenData = snapshot.val();
+        if (tokenData.status !== "Valid") {
+          alert("Token je neplatný nebo již byl použit.");
+          return;
+        }
+
+        // Generování náhodného čísla
+        const randomNumber = Math.floor(Math.random() * 299) + 1;
+
+        // Aktualizace databáze
+        await update(tokenRef, { status: "used", number: randomNumber });
+
+        // Zobrazení výsledku
+        result.textContent = `Vygenerované číslo: ${randomNumber}`;
+      } catch (error) {
+        alert(`Chyba: ${error.message}`);
+      }
+    });
+  </script>
+</body>
+</html>
