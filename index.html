@@ -2,13 +2,75 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" 
+  content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Neonderthaw&display=swap" rel="stylesheet">
   <title>Laurie's Mystery Numbers</title>
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+h1 {
+    font-family: 'Neonderthaw', serif;
+    font-weight: 400;
+    font-style: normal;
+  margin-bottom: 30px; /* Oddělí nadpis od zbytku obsahu */
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+    height: calc(100vh - 80px); /* Zajistí zarovnání do středu pod nadpisem */
+  }
+
+  #tokenInput {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+#generateButton {
+  padding: 10px 30px; /* Zmenšení tlačítka */
+  font-size: 18px; /* Zmenšení písma tlačítka */
+  margin-top: 20px; /* Přidání mezery mezi kolonku a tlačítko */
+}
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #generateButton:hover {
+    background-color: #0056b3;
+  }
+
+  #result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
   <h1>Laurie's Mystery Numbers</h1>
+  <div class="center">
   <input type="text" id="tokenInput" placeholder="Insert your code" />
-  <button id="generateButton">Losuj!</button>
+  <button id="generateButton">Draw!</button>
+  </div>
   <p id="result"></p>
 
   <script type="module">
