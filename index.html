@@ -66,6 +66,31 @@ h1 {
     font-weight: bold;
     color: #ffffff;
   }
+  #prizeTable {
+    margin-top: 40px; /* Odstup od vygenerovaného čísla */
+    border-collapse: collapse; /* Spojí okraje buněk */
+    width: 80%; /* Šířka tabulky */
+    max-width: 600px; /* Maximální šířka tabulky */
+    color: #ffffff; /* Bílý text */
+    text-align: center; /* Text vycentrován */
+    background-color: #333; /* Tmavé pozadí tabulky */
+    border: 1px solid #555; /* Tenký okraj */
+}
+
+#prizeTable th,
+#prizeTable td {
+    border: 1px solid #555; /* Okraje buněk */
+    padding: 10px; /* Vnitřní odsazení */
+}
+
+#prizeTable th {
+    background-color: #444; /* Pozadí pro záhlaví tabulky */
+    font-weight: bold; /* Zvýraznění textu záhlaví */
+}
+
+#prizeTable tr:nth-child(even) {
+    background-color: #222; /* Odstín pro liché řádky */
+}
 </style>
 </head>
 <body>
@@ -75,7 +100,32 @@ h1 {
   <button id="generateButton">Draw!</button>
   </div>
   <p id="result"></p>
-
+<table id="prizeTable">
+  <thead>
+    <tr>
+      <th>Číslo</th>
+      <th>Výhra</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1-50</td>
+      <td>Malá výhra</td>
+    </tr>
+    <tr>
+      <td>51-100</td>
+      <td>Střední výhra</td>
+    </tr>
+    <tr>
+      <td>101-200</td>
+      <td>Velká výhra</td>
+    </tr>
+    <tr>
+      <td>201-299</td>
+      <td>Jackpot</td>
+    </tr>
+  </tbody>
+</table>
   <script type="module">
     // Konfigurace Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
@@ -130,7 +180,7 @@ h1 {
         await update(tokenRef, { status: "used", number: randomNumber });
 
         // Zobrazení výsledku
-        result.textContent = `Vygenerované číslo: ${randomNumber}`;
+        result.textContent = `Your number: ${randomNumber}`;
       } catch (error) {
         alert(`Chyba: ${error.message}`);
       }
