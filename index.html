@@ -173,14 +173,28 @@ h1 {
           return;
         }
 
-        // Generování náhodného čísla
-        const randomNumber = Math.floor(Math.random() * 299) + 1;
+  // Animace losování
+let animationInterval;
+let counter = 0;
 
-        // Aktualizace databáze
-        await update(tokenRef, { status: "used", number: randomNumber });
+animationInterval = setInterval(() => {
+  const tempNumber = Math.floor(Math.random() * 298) + 1;
+  result.textContent = `Drawing: ${tempNumber}`; // Zobrazení dočasného čísla během animace
+  counter++;
 
-        // Zobrazení výsledku
-        result.textContent = `Your number: ${randomNumber}`;
+  if (counter > 20) { // Po 20 cyklech zastavíme animaci
+    clearInterval(animationInterval);
+
+    // Generování finálního čísla
+    const randomNumber = Math.floor(Math.random() * 298) + 1;
+
+    // Aktualizace databáze
+    update(tokenRef, { status: "used", number: randomNumber });
+
+    // Zobrazení výsledku
+    result.textContent = `Your number: ${randomNumber}`;
+  }
+}, 50); // Rychlost animace (50 ms mezi jednotlivými čísly)
       } catch (error) {
         alert(`Chyba: ${error.message}`);
       }
