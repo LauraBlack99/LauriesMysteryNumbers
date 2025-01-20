@@ -91,6 +91,10 @@ h1 {
 #prizeTable tr:nth-child(even) {
     background-color: #222; /* Odstín pro liché řádky */
 }
+.highlight {
+  background-color: yellow; /* Barva pozadí pro zvýrazněný řádek */
+  font-weight: bold; /* Zvýraznění textu */
+}
 </style>
 </head>
 <body>
@@ -103,26 +107,62 @@ h1 {
 <table id="prizeTable">
   <thead>
     <tr>
-      <th>Číslo</th>
-      <th>Výhra</th>
+      <th>Number</th>
+      <th>Price</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>1-50</td>
-      <td>Malá výhra</td>
+      <td>Nothing. Better luck next time!</td>
     </tr>
     <tr>
-      <td>51-100</td>
-      <td>Střední výhra</td>
+      <td>51-90</td>
+      <td>10% OFF 1-Month OnlyFans Subscription</td>
     </tr>
     <tr>
-      <td>101-200</td>
-      <td>Velká výhra</td>
+      <td>91-120</td>
+      <td>20% OFF 1-Month OnlyFans Subscription</td>
     </tr>
     <tr>
-      <td>201-299</td>
-      <td>Jackpot</td>
+      <td>121-140</td>
+      <td>50% OFF 1-Month OnlyFans Subscription</td>
+    </tr>
+     <tr>
+      <td>141-160</td>
+      <td>Free album</td>
+    </tr>
+     <tr>
+      <td>161-180</td>
+      <td>Free video</td>
+    </tr>
+     <tr>
+      <td>181-210</td>
+      <td>30% OFF any album of your choice</td>
+    </tr>
+     <tr>
+      <td>211-240</td>
+      <td>30% OFF any video of your choice</td>
+    </tr>
+     <tr>
+      <td>241-260</td>
+      <td>Free custom album</td>
+    </tr>
+     <tr>
+      <td>261-280</td>
+      <td>New code for free, GOOD LUCK!</td>
+    </tr>
+     <tr>
+      <td>281-298</td>
+      <td>25% OFF everything</td>
+    </tr>
+     <tr>
+      <td>299</td>
+      <td>Date with Laura</td>
+    </tr>
+     <tr>
+      <td>300</td>
+      <td>Spa with Laura</td>
     </tr>
   </tbody>
 </table>
@@ -193,12 +233,34 @@ animationInterval = setInterval(() => {
 
     // Zobrazení výsledku
     result.textContent = `Your number: ${randomNumber}`;
+    // Zvýraznění odpovídajícího řádku
+highlightRow(randomNumber);
   }
 }, 50); // Rychlost animace (50 ms mezi jednotlivými čísly)
       } catch (error) {
         alert(`Chyba: ${error.message}`);
       }
     });
+    // Funkce pro zvýraznění odpovídajícího řádku
+function highlightRow(number) {
+  // Nejprve odstraníme předchozí zvýraznění
+  const highlightedRow = document.querySelector(".highlight");
+  if (highlightedRow) {
+    highlightedRow.classList.remove("highlight");
+  }
+
+  // Projdeme všechny řádky tabulky
+  const rows = document.querySelectorAll("#prizeTable tbody tr");
+  rows.forEach((row) => {
+    const range = row.children[0].textContent; // Číslo nebo rozmezí v prvním sloupci
+    const [min, max] = range.includes("-") ? range.split("-").map(Number) : [Number(range), Number(range)];
+
+    // Zvýrazníme řádek, pokud číslo spadá do rozmezí
+    if (number >= min && number <= max) {
+      row.classList.add("highlight");
+    }
+  });
+}
   </script>
 </body>
 </html>
